@@ -6,7 +6,7 @@ import eslintPlugin from 'vite-plugin-eslint';
 // https://vitejs.dev/config/
 /** @type {import("vite").UserConfig} */
 export default defineConfig({
-    base: '/develop/',
+    base: '/vue3-vite-ts/',
     plugins: [
         vue(),
         Components({
