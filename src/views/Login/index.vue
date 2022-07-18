@@ -3,18 +3,14 @@
  * @Date: 2022-07-11 11:19:32
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-18 11:03:08
+ * @Last Modified Time: 2022-07-18 16:04:56
  -->
 <template>
-    <my-form :form="form" :rules="rules" :columns="columns"></my-form>
+    <my-form :form.sync="form" :rules="rules" :columns="columns"></my-form>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { useRoute } from 'vue-router';
-import MyForm from '../../components/form/index.vue';
-const route = useRoute();
-console.log(route);
 const form = reactive({
     userName: '',
     password: '',
@@ -28,6 +24,15 @@ const columns = reactive([
         prop: 'userName',
         label: '用户名',
         component: 'el-input',
+    },
+    {
+        prop: 'password',
+        label: '密码',
+        component: 'el-input',
+        componentProps: {
+            clearable: true,
+            showPassword: true,
+        },
     },
 ]);
 </script>

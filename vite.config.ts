@@ -15,6 +15,7 @@ export default defineConfig({
                     importStyle: 'sass',
                 }),
             ],
+            // include: ['src/**/component/*.vue'],
             dts: 'src/components.d.ts',
         }),
         eslintPlugin({
