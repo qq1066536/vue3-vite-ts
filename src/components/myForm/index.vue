@@ -3,7 +3,7 @@
  * @Date: 2022-07-18 09:42:33
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-18 16:37:19
+ * @Last Modified Time: 2022-07-18 16:59:37
  -->
 
 <template>
@@ -62,9 +62,7 @@ withDefaults(
 );
 let formRef = ref();
 const validate = () => {
-    console.log(formRef.value);
     if (!formRef.value) return false;
-    // eslint-disable-next-line vue/no-ref-as-operand
     return formRef.value.validate();
 };
 defineExpose({
