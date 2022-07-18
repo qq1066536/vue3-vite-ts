@@ -20,6 +20,7 @@ module.exports = defineConfig({
         'vue/multi-word-component-names': 0,
         '@typescript-eslint/no-non-null-assertion': 0,
         'vue/html-closing-bracket-newline': 0,
+        'vue/no-multiple-template-root': 0,
         // indent: [1, 2],
     },
 });
