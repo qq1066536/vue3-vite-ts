@@ -3,12 +3,12 @@
  * @Date: 2022-07-18 09:42:33
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-18 15:39:35
+ * @Last Modified Time: 2022-07-18 16:37:19
  -->
 
 <template>
     <el-form
-        :ref="formRef"
+        ref="formRef"
         :label-position="labelPosition"
         :label-width="labelWidth"
         :model="form"
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { EpPropMergeType } from 'element-plus/es/utils';
+// import { FormInstance } from 'element-plus';
 interface columnType {
     prop: string;
     label: string;
@@ -59,10 +60,16 @@ withDefaults(
     // eslint-disable-next-line vue/require-valid-default-prop
     { labelPosition: 'left', labelWidth: 80 }
 );
-// defineEmits<{
-//     (e: 'update:form', value: object): void;
-// }>();
-const formRef = ref();
+let formRef = ref();
+const validate = () => {
+    console.log(formRef.value);
+    if (!formRef.value) return false;
+    // eslint-disable-next-line vue/no-ref-as-operand
+    return formRef.value.validate();
+};
+defineExpose({
+    validate,
+});
 </script>
 
 <style></style>

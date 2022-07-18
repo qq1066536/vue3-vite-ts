@@ -3,14 +3,16 @@
  * @Date: 2022-07-11 11:19:32
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-18 16:04:56
+ * @Last Modified Time: 2022-07-18 16:38:00
  -->
 <template>
-    <my-form :form.sync="form" :rules="rules" :columns="columns"></my-form>
+    <my-form ref="formRef" :form.sync="form" :rules="rules" :columns="columns"></my-form>
+    <el-button type="primary" size="small" @click="handleClick(formRef)">提交</el-button>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { FormInstance } from 'element-plus';
+import { reactive, ref } from 'vue';
 const form = reactive({
     userName: '',
     password: '',
@@ -35,6 +37,11 @@ const columns = reactive([
         },
     },
 ]);
+const formRef = ref();
+const handleClick = (form: FormInstance | undefined) => {
+    if (!form) return;
+    form.validate().then(valid => console.log(valid));
+};
 </script>
 
 <style></style>
