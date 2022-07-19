@@ -1,10 +1,3 @@
-<!--
- * @Author: LG
- * @Date: 2022-07-11 11:19:32
- * @Description: 
- * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-19 12:30:24
- -->
 <template>
     <my-form ref="formRef" :form.sync="form" :rules="rules" :columns="columns"></my-form>
     <el-button type="primary" size="small" @click="handleClick">提交</el-button>
