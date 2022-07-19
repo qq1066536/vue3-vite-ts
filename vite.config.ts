@@ -4,10 +4,16 @@ import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import eslintPlugin from 'vite-plugin-eslint';
 import AutoImport from 'unplugin-auto-import/vite';
+import * as path from 'path';
 // https://vitejs.dev/config/
 /** @type {import("vite").UserConfig} */
 export default defineConfig({
     base: '/vue3-vite-ts/',
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src/'),
+        },
+    },
     plugins: [
         vue(),
         AutoImport({

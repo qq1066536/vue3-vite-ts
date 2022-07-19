@@ -49,8 +49,23 @@ const handleClick = () => {
 };
 const handleReset = () => {
     formRef.value.resetFields();
-    ElMessage('GG');
+    ElMessage.error('GG');
 };
+ElMessageBox.confirm('',{
+    title:'Error',
+    message:h('div',{class:'aaa'},'测试'),
+    type:'error',
+    showClose:false,
+    showCancelButton:false,
+    confirmButtonText:'Ok'
+})
+ElNotification({
+    title:'Error',
+    type:'error',
+    message:"错误信息",
+    duration:3000,
+    showClose:false,
+})
 </script>
 
 <style></style>

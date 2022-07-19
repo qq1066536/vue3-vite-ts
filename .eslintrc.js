@@ -17,11 +17,13 @@ module.exports = defineConfig({
         sourceType: 'module',
     },
     rules: {
+        'prettier/prettier': 0,
         'vue/multi-word-component-names': 0,
         '@typescript-eslint/no-non-null-assertion': 0,
         'vue/html-closing-bracket-newline': 0,
         'vue/no-multiple-template-root': 0,
         'vue/no-mutating-props': 0,
+        'vue/comment-directive': 'off',
         // indent: [1, 2],
     },
 });

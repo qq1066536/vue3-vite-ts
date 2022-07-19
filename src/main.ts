@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import ElementPlugin from './plugins/element';
 import router from './plugins/router';
 import 'normalize.css';
 router.beforeEach((to, form, next) => {
@@ -8,4 +7,4 @@ router.beforeEach((to, form, next) => {
         next('/login');
     } else next();
 });
-createApp(App).use(ElementPlugin).use(router).mount('#app');
+createApp(App).use(router).mount('#app');
