@@ -3,12 +3,23 @@ import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import eslintPlugin from 'vite-plugin-eslint';
+import AutoImport from 'unplugin-auto-import/vite';
 // https://vitejs.dev/config/
 /** @type {import("vite").UserConfig} */
 export default defineConfig({
     base: '/vue3-vite-ts/',
     plugins: [
         vue(),
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+            dts: './src/auto-imports.d.ts',
+            vueTemplate: true,
+            imports: ['vue'],
+            eslintrc: {
+                enabled: true,
+                filepath: '.eslintrc-auto-import.json',
+            },
+        }),
         Components({
             resolvers: [
                 ElementPlusResolver({
@@ -16,7 +27,7 @@ export default defineConfig({
                 }),
             ],
             // include: ['src/**/component/*.vue'],
-            dts: 'src/components.d.ts',
+            dts: './src/components.d.ts',
         }),
         eslintPlugin({
             include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],

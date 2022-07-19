@@ -3,7 +3,7 @@
  * @Date: 2022-07-18 09:42:33
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-18 16:59:37
+ * @Last Modified Time: 2022-07-19 11:34:50
  -->
 
 <template>
@@ -29,20 +29,17 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+// import { Component } from 'vue';
 import { EpPropMergeType } from 'element-plus/es/utils';
-// import { FormInstance } from 'element-plus';
+// import { Component } from '@vue/runtime-core';
 interface columnType {
     prop: string;
     label: string;
-    component: string;
+    component: unknown;
     componentProps?: object;
 }
-type formItem = {
-    [key: string]: unknown;
-};
 interface Props {
-    form: formItem;
+    form: { [key: string]: unknown };
     rules: object;
     labelPosition?: EpPropMergeType<StringConstructor, 'left' | 'right' | 'top', unknown>;
     labelWidth?: number;
@@ -55,18 +52,19 @@ const response = reactive({
     sm: 12,
     xs: 24,
 });
-withDefaults(
-    defineProps<Props>(),
-    // eslint-disable-next-line vue/require-valid-default-prop
-    { labelPosition: 'left', labelWidth: 80 }
-);
+withDefaults(defineProps<Props>(), { labelPosition: 'left', labelWidth: 80 });
 let formRef = ref();
 const validate = () => {
     if (!formRef.value) return false;
     return formRef.value.validate();
 };
+const resetFields = () => {
+    if (!formRef.value) return false;
+    return formRef.value.resetFields();
+};
 defineExpose({
     validate,
+    resetFields,
 });
 </script>
 
