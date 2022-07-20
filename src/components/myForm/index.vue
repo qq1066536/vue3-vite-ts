@@ -3,7 +3,7 @@
  * @Date: 2022-07-18 09:42:33
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-20 15:08:15
+ * @Last Modified Time: 2022-07-20 16:01:50
  -->
 
 <template>
@@ -46,7 +46,7 @@ interface Props {
     labelWidth?: number;
     customClass?: string;
     responsive?: boolean;
-    size:string
+    size:EpPropMergeType<StringConstructor,"large"|'default'|'small',unknown>;
     columns: Array<columnType>;
 }
 const response = computed(() =>

@@ -20,7 +20,7 @@ export default defineConfig({
             resolvers: [ElementPlusResolver()],
             dts: './src/auto-imports.d.ts',
             vueTemplate: true,
-            imports: ['vue'],
+            imports: ['vue','vue-i18n'],
             eslintrc: {
                 enabled: true,
                 filepath: '.eslintrc-auto-import.json',

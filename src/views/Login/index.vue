@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+const {t} = useI18n()
 const form = reactive({
     userName: '',
     password: '',
@@ -19,7 +20,7 @@ const rules = reactive({
 const columns = reactive([
     {
         prop: 'userName',
-        label: '用户名',
+        label: t("userName"),
         component: markRaw(ElInput),
         componentProps: {
             placeholder: '请输入账户',
