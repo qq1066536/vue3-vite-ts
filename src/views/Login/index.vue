@@ -1,5 +1,6 @@
 <template>
-    <my-form ref="formRef" :form.sync="form" :rules="rules" :columns="columns"></my-form>
+    <!-- <el-switch v-model="responsive"></el-switch> -->
+    <my-form ref="formRef" :form.sync="form" :rules="rules" :columns="columns" :responsive="responsive" label-position="top"></my-form>
     <el-button type="primary" size="small" @click="handleClick">提交</el-button>
     <el-button type="primary" size="small" @click="handleReset">重置</el-button>
 </template>
@@ -10,6 +11,7 @@ const form = reactive({
     userName: '',
     password: '',
 });
+const responsive= ref(false)
 const rules = reactive({
     userName: [{ required: true, message: '请输入用户名', trigger: ['change', 'blur'] }],
     password: [{ required: true, message: '请输入密码', trigger: ['change', 'blur'] }],
@@ -22,14 +24,14 @@ const columns = reactive([
         componentProps: {
             placeholder: '请输入账户',
             clearable: true,
-            type: 'textarea',
-            maxlength: 100,
-            showWordLimit: true,
-            autosize: {
-                minRows: 2,
-                maxRows: 5,
-            },
-            resize: 'none',
+            type: 'text',
+            // maxlength: 100,
+            // showWordLimit: true,
+            // autosize: {
+            //     minRows: 2,
+            //     maxRows: 5,
+            // },
+            // resize: 'none',
         },
     },
     {

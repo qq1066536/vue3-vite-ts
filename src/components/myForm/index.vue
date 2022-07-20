@@ -3,7 +3,7 @@
  * @Date: 2022-07-18 09:42:33
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-19 12:41:55
+ * @Last Modified Time: 2022-07-20 15:08:15
  -->
 
 <template>
@@ -13,7 +13,8 @@
         :label-width="labelWidth"
         :model="form"
         :rules="rules"
-        size="small"
+        :size="size"
+        :class="customClass"
         :validate-on-rule-change="false">
         <el-row :gutter="20">
             <el-col v-for="column in columns" v-bind="response" :key="column.prop">
@@ -43,16 +44,35 @@ interface Props {
     rules: object;
     labelPosition?: EpPropMergeType<StringConstructor, 'left' | 'right' | 'top', unknown>;
     labelWidth?: number;
+    customClass?: string;
+    responsive?: boolean;
+    size:string
     columns: Array<columnType>;
 }
-const response = reactive({
-    xl: 6,
-    lg: 6,
-    md: 12,
-    sm: 12,
-    xs: 24,
+const response = computed(() =>
+    props.responsive
+        ? {
+              xl: 6,
+              lg: 6,
+              md: 12,
+              sm: 12,
+              xs: 24,
+          }
+        : {
+              xl: 24,
+              lg: 24,
+              md: 24,
+              sm: 24,
+              xs: 24,
+          }
+);
+const props = withDefaults(defineProps<Props>(), {
+    labelPosition: 'left',
+    labelWidth: 80,
+    customClass: 'my-form',
+    responsive: true,
+    size:'default'
 });
-withDefaults(defineProps<Props>(), { labelPosition: 'left', labelWidth: 80 });
 let formRef = ref();
 const validate = () => {
     if (!formRef.value) return false;
