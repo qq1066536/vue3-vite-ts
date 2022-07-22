@@ -3,7 +3,7 @@
  * @Date: 2022-07-18 09:42:33
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-20 16:01:50
+ * @Last Modified Time: 2022-07-21 11:39:21
  -->
 
 <template>
@@ -18,7 +18,7 @@
         :validate-on-rule-change="false">
         <el-row :gutter="20">
             <el-col v-for="column in columns" v-bind="response" :key="column.prop">
-                <el-form-item :label="column.label" :prop="column.prop">
+                <el-form-item :label="t(column.label)" :prop="column.prop">
                     <component
                         :is="column.component"
                         v-bind="column.componentProps"
@@ -33,6 +33,7 @@
 // import { Component } from 'vue';
 import { EpPropMergeType } from 'element-plus/es/utils';
 // import { Component } from '@vue/runtime-core';
+const {t} = useI18n()
 interface columnType {
     prop: string;
     label: string;
@@ -46,7 +47,7 @@ interface Props {
     labelWidth?: number;
     customClass?: string;
     responsive?: boolean;
-    size:EpPropMergeType<StringConstructor,"large"|'default'|'small',unknown>;
+    size?:EpPropMergeType<StringConstructor,"large"|'default'|'small',unknown>;
     columns: Array<columnType>;
 }
 const response = computed(() =>

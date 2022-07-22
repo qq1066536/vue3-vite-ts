@@ -9,6 +9,7 @@
     "eslint": "npx eslint ./src --fix"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "element-plus": "^2.2.9",
     "normalize.css": "^8.0.1",
     "vue": "^3.2.25",
@@ -16,6 +17,7 @@
     "vue-router": "^4.1.1"
   },
   "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^5.0.0",
     "@types/node": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",

@@ -1,4 +1,6 @@
 {
   "userName": "UserName",
-  "password": "Password"
+  "password": "Password",
+  "submit": "Submit",
+  "reset": "Reset"
 }

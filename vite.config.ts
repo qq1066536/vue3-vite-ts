@@ -5,22 +5,27 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import eslintPlugin from 'vite-plugin-eslint';
 import AutoImport from 'unplugin-auto-import/vite';
 import * as path from 'path';
+import vueI18n from '@intlify/vite-plugin-vue-i18n';
+import { fileURLToPath } from 'url';
+console.log(path.dirname(fileURLToPath(import.meta.url)),path.resolve(fileURLToPath(import.meta.url), 'src/locales/lang/**'),__dirname);
+
 // https://vitejs.dev/config/
 /** @type {import("vite").UserConfig} */
 export default defineConfig({
     base: '/vue3-vite-ts/',
     resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './src/'),
-        },
+        alias: [{find:'@',replacement:path.resolve(__dirname,'./src/')}]
     },
     plugins: [
         vue(),
+        vueI18n({
+            include: path.resolve(__dirname, 'src/locales/lang/**'),
+        }),
         AutoImport({
             resolvers: [ElementPlusResolver()],
             dts: './src/auto-imports.d.ts',
             vueTemplate: true,
-            imports: ['vue','vue-i18n'],
+            imports: ['vue', 'vue-i18n'],
             eslintrc: {
                 enabled: true,
                 filepath: '.eslintrc-auto-import.json',
