@@ -2,28 +2,38 @@
   <!-- <el-switch v-model="responsive"></el-switch> -->
   <my-form
     ref="formRef"
+    custom-class="login-form"
     :form.sync="form"
     :rules="rules"
     :columns="columns"
     :responsive="responsive"
     label-position="top"
   ></my-form>
-  <el-button type="primary" size="small" @click="handleClick">{{
-    t("submit")
-  }}</el-button>
-  <el-button type="primary" size="small" @click="handleReset">{{ t("reset") }}</el-button>
-  <el-button type="primary" size="small" @click="changeLanguage">切换语言</el-button>
-  <el-select v-model="locale">
-    <el-option v-for="item in availableLocales" :key="item" :value="item">{{
-      item
-    }}</el-option>
-  </el-select>
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 40px;
+    "
+  >
+    <el-checkbox style="color: #fff" :label="t('rememberPassword')"></el-checkbox>
+    <el-button type="text">{{ t("forgetPassword") }}</el-button>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; height: 40px">
+    <el-button type="primary" style="width: 100px" size="small" @click="handleClick">{{
+      t("submit")
+    }}</el-button>
+    <el-button size="small" style="width: 100px" @click="handleReset">{{
+      t("reset")
+    }}</el-button>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { POST } from "../../utils";
-const { t, locale, availableLocales } = useI18n();
+const { t, locale } = useI18n();
 const form = reactive({
   userName: "",
   password: "",
@@ -33,11 +43,6 @@ const rules = reactive({
   userName: [{ required: true, message: "请输入用户名", trigger: ["change", "blur"] }],
   password: [{ required: true, message: "请输入密码", trigger: ["change", "blur"] }],
 });
-const changeLanguage = async () => {
-  locale.value = locale.value === "zh" ? "en" : "zh";
-  let source = await POST("/index", { type: "orange" });
-  console.log(source);
-};
 const columns = reactive([
   {
     prop: "userName",
@@ -61,28 +66,31 @@ const columns = reactive([
   },
 ]);
 const formRef = ref();
-const handleClick = () => {
-  formRef.value.validate().then((valid: unknown) => console.log(valid));
+const handleClick = async () => {
+  let flag = await formRef.value.validate();
+  if (flag) {
+    console.log("first");
+  }
 };
 const handleReset = () => {
   formRef.value.resetFields();
   ElMessage.error("GG");
 };
-ElMessageBox.confirm("", {
-  title: "Error",
-  message: h("div", { class: "aaa" }, "测试"),
-  type: "error",
-  showClose: false,
-  showCancelButton: false,
-  confirmButtonText: "Ok",
-});
-ElNotification({
-  title: "Error",
-  type: "error",
-  message: "错误信息",
-  duration: 3000,
-  showClose: false,
-});
 </script>
 
-<style></style>
+<style lang="scss">
+.login-form {
+  .el-form-item__label {
+    color: #b9b8b8;
+  }
+  .is-required {
+    .el-form-item__label {
+      &::after {
+        content: "*";
+        margin-left: 8px;
+        color: rgba($color: #f00, $alpha: 0.7);
+      }
+    }
+  }
+}
+</style>

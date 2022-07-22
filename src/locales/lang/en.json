@@ -2,5 +2,9 @@
   "userName": "UserName",
   "password": "Password",
   "submit": "Submit",
-  "reset": "Reset"
+  "reset": "Reset",
+  "loginBanner": "Login Page",
+  "changeLanguage": "Change Language",
+  "rememberPassword": "Remember",
+  "forgetPassword": "Forget?"
 }
