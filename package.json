@@ -38,9 +38,16 @@
         "vite-plugin-eslint": "^1.6.1",
         "vue-tsc": "0.35.0"
     },
-    "husky":{
-      "hooks":{
-        "pre-commit":"npx prettier . --write"
-      }
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "src/**/*": [
+            "prettier . --write",
+            "eslint --cache --fix",
+            "git add"
+        ]
     }
 }
