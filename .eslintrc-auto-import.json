@@ -3,6 +3,7 @@
     "EffectScope": true,
     "ElInput": true,
     "ElMessage": true,
+    "ElNotification": true,
     "computed": true,
     "createApp": true,
     "customRef": true,

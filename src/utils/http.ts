@@ -3,7 +3,7 @@
  * @Date: 2022-07-21 11:45:51
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-22 14:16:49
+ * @Last Modified Time: 2022-07-25 11:29:17
  */
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 const axiosInstance: AxiosInstance = axios.create({
