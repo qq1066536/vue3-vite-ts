@@ -3,9 +3,11 @@
  * @Date: 2022-07-21 11:45:51
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-25 11:29:17
+ * @Last Modified Time: 2022-07-25 14:48:43
  */
+// import { i18n } from '@/locales';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+// import {i18n} from '../locales'
 const axiosInstance: AxiosInstance = axios.create({
     baseURL: 'https://www.baidu.com' + import.meta.env.BASE_URL,
 });
@@ -18,8 +20,8 @@ axiosInstance.interceptors.response.use(
     },
     (error: AxiosError) => {
         ElNotification({
-            message: error.message,
-            title: 'Error!',
+            message: i18n.global.t(error.message),
+            title: i18n.global.t('error'),
             type: 'error',
             // showClose: false,
         });
@@ -30,12 +32,7 @@ export const GET = (url: string, params: unknown) => {
     return axiosInstance.get(encodeURI(url), { params });
 };
 export const POST = (url: string, data: object) => {
-    try {
-        return axiosInstance.post(encodeURI(url), data);
-    } catch (error) {
-        console.log(error,"AAA")
-    }
-    
+    return axiosInstance.post(encodeURI(url), data);
 };
 export const DELETE = (url: string, data: object) => {
     return axiosInstance.delete(encodeURI(url), data);

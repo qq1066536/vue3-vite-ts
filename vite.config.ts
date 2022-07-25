@@ -7,14 +7,20 @@ import AutoImport from 'unplugin-auto-import/vite';
 import * as path from 'path';
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
 import { fileURLToPath } from 'url';
-console.log(path.dirname(fileURLToPath(import.meta.url)),path.resolve(fileURLToPath(import.meta.url), 'src/locales/lang/**'),__dirname);
+console.log(
+    path.dirname(fileURLToPath(import.meta.url)),
+    path.resolve(fileURLToPath(import.meta.url), 'src/locales/lang/**'),
+    __dirname
+);
 
 // https://vitejs.dev/config/
 /** @type {import("vite").UserConfig} */
 export default defineConfig({
     base: '/vue3-vite-ts/',
+
     resolve: {
-        alias: [{find:'@',replacement:path.resolve(__dirname,'./src/')}]
+        alias: [{ find: '@', replacement: path.resolve(__dirname, './src/') }],
+        extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
     plugins: [
         vue(),
@@ -37,7 +43,7 @@ export default defineConfig({
                     importStyle: 'sass',
                 }),
             ],
-            // include: ['src/**/component/*.vue'],
+            extensions: ['vue', 'ts'],
             dts: './src/components.d.ts',
         }),
         eslintPlugin({

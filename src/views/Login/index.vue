@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { POST } from '@/utils';
+import { GET } from '@/utils';
 import { reactive, ref } from 'vue';
 const { t } = useI18n();
 const form = reactive({
@@ -59,10 +59,14 @@ const columns = reactive([
 ]);
 const formRef = ref();
 const handleClick = async () => {
-    let flag = await formRef.value.validate();
-    POST("/",{})
-    if (flag) {
-        console.log('first');
+    try {
+        let flag = await formRef.value.validate();
+        if (flag) {
+            console.log('first');
+        }
+        GET('/s', { a: 123 });
+    } catch (error) {
+        console.log(error);
     }
 };
 const handleReset = () => {

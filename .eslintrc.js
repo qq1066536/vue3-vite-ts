@@ -15,7 +15,12 @@ module.exports = defineConfig({
         ecmaVersion: 'latest',
         parser: '@typescript-eslint/parser',
         sourceType: 'module',
+        extraFileExtensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+        vueFeatures: {
+            interpolationAsNonHTML: true,
+        },
     },
+    // extraFileExtensions:[],
     rules: {
         'prettier/prettier': 0,
         'vue/multi-word-component-names': 0,

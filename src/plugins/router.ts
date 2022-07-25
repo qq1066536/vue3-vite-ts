@@ -3,19 +3,19 @@
  * @Date: 2022-07-11 11:10:06
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-19 14:01:30
+ * @Last Modified Time: 2022-07-25 16:09:09
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const routes: Readonly<RouteRecordRaw[]> = [
     {
         path: '/',
-        component: () => import('../App.vue'),
+        component: () => import('@/App.vue'),
         name: 'Home',
         redirect: '/login',
         children: [
             {
                 path: '/login',
-                component: () => import('../views/Login/layout.vue'),
+                component: () => import('@/views/Login/layout.vue'),
                 name: 'Login',
                 redirect: '/login/signIn',
                 children: [
