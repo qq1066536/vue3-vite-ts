@@ -18,7 +18,7 @@
     "
   >
     <el-checkbox style="color: #fff" :label="t('rememberPassword')"></el-checkbox>
-    <el-button type="text">{{ t("forgetPassword") }}</el-button>
+    <el-button link type="primary">{{ t("forgetPassword") }}</el-button>
   </div>
   <div style="display: flex; justify-content: center; align-items: center; height: 40px">
     <el-button type="primary" style="width: 100px" size="small" @click="handleClick">{{
@@ -32,8 +32,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { POST } from "../../utils";
-const { t, locale } = useI18n();
+const { t } = useI18n();
 const form = reactive({
   userName: "",
   password: "",
@@ -49,7 +48,7 @@ const columns = reactive([
     label: "userName",
     component: markRaw(ElInput),
     componentProps: {
-      placeholder: "请输入账户",
+      placeholder: "typeUser",
       clearable: true,
       type: "text",
     },
@@ -61,7 +60,7 @@ const columns = reactive([
     componentProps: {
       clearable: true,
       showPassword: true,
-      placeholder: "请输入密码",
+      placeholder: "typePassword",
     },
   },
 ]);

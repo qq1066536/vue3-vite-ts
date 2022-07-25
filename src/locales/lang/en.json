@@ -6,5 +6,7 @@
   "loginBanner": "Login Page",
   "changeLanguage": "Change Language",
   "rememberPassword": "Remember",
-  "forgetPassword": "Forget?"
+  "forgetPassword": "Forget?",
+  "typePassword": "Type Password",
+  "typeUser": "Type UserName"
 }

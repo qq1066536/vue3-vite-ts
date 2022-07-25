@@ -6,5 +6,7 @@
   "loginBanner": "登录页",
   "changeLanguage": "切换语言",
   "rememberPassword": "记住密码",
-  "forgetPassword": "忘记密码？"
+  "forgetPassword": "忘记密码？",
+  "typePassword": "输入密码",
+  "typeUser": "请输入账户"
 }

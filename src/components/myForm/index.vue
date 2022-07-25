@@ -3,7 +3,7 @@
  * @Date: 2022-07-18 09:42:33
  * @Description: 
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-22 14:55:10
+ * @Last Modified Time: 2022-07-25 11:02:49
  -->
 
 <template>
@@ -25,6 +25,7 @@
             :is="column.component"
             v-bind="column.componentProps"
             v-model="form[column.prop]"
+            :placeholder="t(`${column?.componentProps?.placeholder}`)"
           />
         </el-form-item>
       </el-col>
