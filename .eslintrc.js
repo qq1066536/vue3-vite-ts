@@ -29,6 +29,7 @@ module.exports = defineConfig({
         'vue/no-multiple-template-root': 0,
         'vue/no-mutating-props': 0,
         'vue/comment-directive': 'off',
+
         // indent: [1, 2],
     },
 });

@@ -3,9 +3,9 @@
  * @Date: 2022-07-21 11:45:51
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-25 14:48:43
+ * @Last Modified Time: 2022-07-25 16:39:22
  */
-// import { i18n } from '@/locales';
+import { i18n } from '@/locales';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 // import {i18n} from '../locales'
 const axiosInstance: AxiosInstance = axios.create({
