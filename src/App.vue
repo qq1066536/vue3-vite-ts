@@ -10,6 +10,7 @@ import ElZh from 'element-plus/es/locale/lang/zh-cn';
 import Elen from 'element-plus/es/locale/lang/En';
 const { locale } = useI18n();
 const ElLocales = computed(() => (locale.value === 'zh-cn' ? ElZh : Elen));
+// console.log($i18n.global.t("error"))
 </script>
 <style lang="scss" scoped>
 #app {

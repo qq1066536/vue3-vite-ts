@@ -23,11 +23,13 @@
 </template>
 
 <script setup lang="ts">
-import { GET } from '@/utils';
+import { aasApi } from '@/api/aas';
+import { POST } from '@/utils';
 import { reactive, ref } from 'vue';
+import { GetClass, PostClass } from '../../utils/http';
 const { t } = useI18n();
 const form = reactive({
-    userName: '',
+    username: '',
     password: '',
 });
 const responsive = ref(false);
@@ -37,7 +39,7 @@ const rules = reactive({
 });
 const columns = reactive([
     {
-        prop: 'userName',
+        prop: 'username',
         label: 'userName',
         component: markRaw(ElInput),
         componentProps: {
@@ -62,9 +64,17 @@ const handleClick = async () => {
     try {
         let flag = await formRef.value.validate();
         if (flag) {
-            console.log('first');
+            // GetClass('/aaa', {
+            //     a: 'aaa',
+            // });
+            let source = await PostClass(aasApi.login,form, {
+                headers: { 'x-system-id': '' },
+            });
+            if (source.code === 200) {
+                sessionStorage.token = `Bearer ${source.data.token}`;
+            }
         }
-        GET('/s', { a: 123 });
+        // GET('/s', { a: 123 });
     } catch (error) {
         console.log(error);
     }
