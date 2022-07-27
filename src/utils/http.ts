@@ -1,9 +1,10 @@
+import { AxiosResponse } from 'axios';
 /*
  * @Author: LG
  * @Date: 2022-07-21 11:45:51
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-26 16:50:08
+ * @Last Modified Time: 2022-07-27 10:45:19
  */
 import { i18n } from '@/locales';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
@@ -45,6 +46,12 @@ export const PUT = (url: string, data: object) => {
 export const PATCH = (url: string, data: object) => {
     return axiosInstance.patch(encodeURI(url), data);
 };
+interface MyResponse<T = unknown> {
+    code: number;
+    data: T;
+    status: number;
+    page?: object;
+}
 class Request {
     instance: AxiosInstance;
     constructor(config: AxiosRequestConfig) {
@@ -54,28 +61,28 @@ class Request {
         });
         this.instance.interceptors.response.use(
             (response: AxiosResponse) => {
-                return response;
+                if (response.status === 200) {
+                    return response.data;
+                }
+                // return response;
             },
             (error: AxiosError) => Promise.reject(error)
         );
     }
-    get(url: string, config: AxiosRequestConfig) {
+    get<T = unknown, R = AxiosResponse<T>, D = unknown>(
+        url: string,
+        config: AxiosRequestConfig<D>
+    ): Promise<MyResponse<R>> {
         return this.instance.get(encodeURI(url), config);
     }
-    post<T = unknown, R = AxiosResponse<T>, D = unknown>(
+    post<T = unknown, R = AxiosResponse<T>>(
         url: string,
         data?: T,
-        config?: AxiosRequestConfig<D>
-    ): Promise<R> {
-        return this.instance.post(encodeURI(url), data, config);
+        config?: AxiosRequestConfig<R>
+    ): Promise<MyResponse<R>> {
+        return this.instance.post<unknown, MyResponse<R>>(encodeURI(url), data, config);
     }
 }
-const request = new Request({
-    baseURL: 'https://10.202.94.100' + import.meta.env.BASE_URL,
+export const request = new Request({
+    baseURL: import.meta.env.VITE_BASE_URL + import.meta.env.BASE_URL,
 });
-export const GetClass = (url: string, params: unknown) => {
-    return request.get(url, { params });
-};
-export const PostClass = (url: string, data?: unknown, config?: AxiosRequestConfig) => {
-    return request.post(url, data, config);
-};

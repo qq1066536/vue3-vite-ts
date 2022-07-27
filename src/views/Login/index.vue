@@ -23,10 +23,14 @@
 </template>
 
 <script setup lang="ts">
+
 import { aasApi } from '@/api/aas';
-import { POST } from '@/utils';
 import { reactive, ref } from 'vue';
-import { GetClass, PostClass } from '../../utils/http';
+import { request } from '@/utils';
+import router from '../../plugins/router';
+defineOptions({
+    name:'Login'
+})
 const { t } = useI18n();
 const form = reactive({
     username: '',
@@ -59,6 +63,20 @@ const columns = reactive([
         },
     },
 ]);
+interface MyConfig {
+    username: string;
+    password: string;
+}
+interface Iresponse {
+    token: string;
+    dateFormat: string;
+    systemId: number;
+    tenantId: number;
+    tenantName: string;
+    timeFormat: string;
+    userCode: string;
+    userId: number;
+}
 const formRef = ref();
 const handleClick = async () => {
     try {
@@ -67,11 +85,10 @@ const handleClick = async () => {
             // GetClass('/aaa', {
             //     a: 'aaa',
             // });
-            let source = await PostClass(aasApi.login,form, {
-                headers: { 'x-system-id': '' },
-            });
+            let source = await request.post<MyConfig, Iresponse>(aasApi.login, form);
             if (source.code === 200) {
                 sessionStorage.token = `Bearer ${source.data.token}`;
+                router.push({ name: 'Home' });
             }
         }
         // GET('/s', { a: 123 });

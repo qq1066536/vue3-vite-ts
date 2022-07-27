@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import App from './App.vue';
+import App from './main.vue';
 import router from './plugins/router';
 import i18n from './locales';
 import 'normalize.css';

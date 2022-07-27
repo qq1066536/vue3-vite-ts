@@ -222,3 +222,36 @@ createApp(App).use(Element).use(i18n).use(router).mount('#app');
 > TODO
 
 -   [x] `element-plus` 配置 i18n
+
+### 自定义`setup` name属性
+
+> vue setup  组件默认使用文件名作为组件名，会导致部分文件显示不准确，配置`unplugin-vue-define-options` 自定义name
+
+- 添加依赖
+
+``` bash
+    yarn add unplugin-vue-define-options
+```
+
+- 配置`vite.config.ts`
+
+``` typescript
+import DefineOptions from 'unplugin-vue-define-options/vite'
+export default defineConfig(({ mode,command}) => {
+     plugins: [
+         ...
+         DefineOptions()
+         ...
+     ]
+})
+```
+- 配置`tsconfig.json`
+
+```json
+{
+    "compilerOptions":{
+        ...
+        "types": ["unplugin-vue-define-options"] //添加对应的定义文件
+    }
+}
+```

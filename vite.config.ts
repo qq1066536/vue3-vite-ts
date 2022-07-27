@@ -6,24 +6,20 @@ import eslintPlugin from 'vite-plugin-eslint';
 import AutoImport from 'unplugin-auto-import/vite';
 import * as path from 'path';
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
-
+import DefineOptions from 'unplugin-vue-define-options/vite'
 // https://vitejs.dev/config/
 /** @type {import("vite").UserConfig} */
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode,command}) => {
     const env = loadEnv(mode, process.cwd());
-    console.log(env,mode); 
-    
-    return {
-        base: '/develop/',
-        define: {
-            __APP_ENV__: env.APP_ENV,
-        },
+    const base = {
+        base:'/develop/',
         resolve: {
             alias: [{ find: '@', replacement: path.resolve(__dirname, './src/') }],
             extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
         },
         plugins: [
             vue(),
+            DefineOptions(),
             vueI18n({
                 include: path.resolve(__dirname, 'src/locales/lang/**'),
             }),
@@ -52,24 +48,34 @@ export default defineConfig(({ mode }) => {
                 include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
             }),
         ],
-        build: {
-            target: 'modules',
-            minify: 'terser',
-            terserOptions: {
-                compress: {
-                    drop_console: true,
-                    drop_debugger: true,
-                },
-            },
-            rollupOptions: {
-                plugins: [],
-                output: {
-                    manualChunks: {
-                        vue: ['vue'],
-                        elmentPlus: ['element-plus'],
+    }
+    console.log(env,mode,command); 
+    if(command==='serve'){
+        return {
+                ...base
+        }
+    }else if(command='build'){
+        return {
+            ...base,
+            build:{
+                target: 'modules',
+                minify: 'terser',
+                terserOptions: {
+                    compress: {
+                        drop_console: true,
+                        drop_debugger: true,
                     },
                 },
-            },
-        },
-    };
+                rollupOptions: {
+                    plugins: [],
+                    output: {
+                        manualChunks: {
+                            vue: ['vue'],
+                            elmentPlus: ['element-plus'],
+                        },
+                    },
+                },
+            }
+        }
+    }
 });
