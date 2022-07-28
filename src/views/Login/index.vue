@@ -37,10 +37,10 @@ const form = reactive({
     password: '',
 });
 const responsive = ref(false);
-const rules = reactive({
-    userName: [{ required: true, message: '请输入用户名', trigger: ['change', 'blur'] }],
-    password: [{ required: true, message: '请输入密码', trigger: ['change', 'blur'] }],
-});
+const rules = computed(()=>{return {
+    username: [{ required: true, message: t('inputUserName'), trigger: ['change', 'blur'] }],
+    password: [{ required: true, message: t('inputPassword'), trigger: ['change', 'blur'] }],
+}});
 const columns = reactive([
     {
         prop: 'username',

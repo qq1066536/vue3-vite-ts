@@ -1,14 +1,16 @@
 {
-    "userName": "UserName",
-    "password": "Password",
-    "submit": "Submit",
-    "reset": "Reset",
-    "loginBanner": "Login Page",
-    "changeLanguage": "Change Language",
-    "rememberPassword": "Remember",
-    "forgetPassword": "Forget?",
-    "typePassword": "Type Password",
-    "typeUser": "Type UserName",
-    "error": "Error",
-    "Network Error": "Network Error"
+  "userName": "UserName",
+  "password": "Password",
+  "submit": "Submit",
+  "reset": "Reset",
+  "loginBanner": "Login Page",
+  "changeLanguage": "Change Language",
+  "rememberPassword": "Remember",
+  "forgetPassword": "Forget?",
+  "typePassword": "Type Password",
+  "typeUser": "Type UserName",
+  "error": "Error",
+  "Network Error": "Network Error",
+  "inputUserName": "Please Type Username",
+  "inputPassword": "Please Type Password"
 }

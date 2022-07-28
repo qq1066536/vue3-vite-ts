@@ -1,0 +1,1 @@
+import{_ as r}from"./index.b4405641.js";import{Y as e,a as s,K as t}from"./vue.f0fe4329.js";import"./elmentPlus.a4447362.js";var a=r({},[["render",function(r,a){const o=e("router-view");return s(),t(o)}]]);export{a as default};

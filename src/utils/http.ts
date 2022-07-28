@@ -1,13 +1,13 @@
-import { AxiosResponse } from 'axios';
 /*
  * @Author: LG
  * @Date: 2022-07-21 11:45:51
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-27 10:45:19
+ * @Last Modified Time: 2022-07-28 10:43:54
  */
 import { i18n } from '@/locales';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+// import { ElNotification } from 'element-plus/es';
 // import {i18n} from '../locales'
 const axiosInstance: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL + import.meta.env.BASE_URL,
@@ -66,7 +66,14 @@ class Request {
                 }
                 // return response;
             },
-            (error: AxiosError) => Promise.reject(error)
+            (error: AxiosError) => {
+                ElNotification({
+                    message: i18n.global.t(error.message),
+                    title: i18n.global.t('error'),
+                    type: 'error',
+                });
+                Promise.reject(error);
+            }
         );
     }
     get<T = unknown, R = AxiosResponse<T>, D = unknown>(

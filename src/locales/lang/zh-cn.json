@@ -1,14 +1,16 @@
 {
-    "userName": "用户名",
-    "password": "密码",
-    "submit": "提交",
-    "reset": "重置",
-    "loginBanner": "登录页",
-    "changeLanguage": "切换语言",
-    "rememberPassword": "记住密码",
-    "forgetPassword": "忘记密码？",
-    "typePassword": "输入密码",
-    "typeUser": "请输入账户",
-    "error": "  错误",
-    "Network Error": "网络错误"
+  "userName": "用户名",
+  "password": "密码",
+  "submit": "提交",
+  "reset": "重置",
+  "loginBanner": "登录页",
+  "changeLanguage": "切换语言",
+  "rememberPassword": "记住密码",
+  "forgetPassword": "忘记密码？",
+  "typePassword": "输入密码",
+  "typeUser": "请输入账户",
+  "error": "  错误",
+  "Network Error": "网络错误",
+  "inputPassword": "请输入密码",
+  "inputUserName": "请输入账户"
 }

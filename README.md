@@ -8,13 +8,13 @@ yarn create vite vue3-vite-ts --template vue-ts
 
 ### 配置`element-plus`
 
-> 添加`element-plus`并使用`unplugin-vue-components`实现按需加载和 IDE 提示
+> 添加`element-plus`并使用`unplugin-vue-components`和`unplugin-auto-import`实现按需加载、自动引入和 IDE 提示
 
 -   添加依赖
 
 ```bash
 yarn add element-plus
-yarn add unplugin-vue-components -D
+yarn add unplugin-vue-components unplugin-auto-import -D
 ```
 
 -   配置`vite.config.ts`实现按需加载和 IDE 提示
@@ -28,6 +28,16 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 export default defineConfig({
     plugins: [
         vue(),
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+            dts: './src/auto-imports.d.ts',
+            vueTemplate: true,
+            imports: ['vue', 'vue-i18n'],
+            eslintrc: {
+                enabled: true,
+                filepath: '.eslintrc-auto-import.json',
+            },
+        }),
         Components({
             resolvers: [
                 ElementPlusResolver({
@@ -38,65 +48,6 @@ export default defineConfig({
         }),
     ],
 });
-```
-
--   配置`element-plus`插件和全局方法 eg:`$message`、`$notify`
-
-```typescript
-/* src/plugins/element.ts */
-import {
-    ElMessage,
-    ElNotification,
-    ElMessageBox,
-    Message,
-    IElMessageBox,
-    Notify,
-} from 'element-plus';
-//app.provide()调用需要手动导入其样式
-import 'element-plus/theme-chalk/el-message.css';
-import 'element-plus/theme-chalk/el-message-box.css';
-import 'element-plus/theme-chalk/el-notification.css';
-import { InjectionKey, App } from 'vue';
-import { SFCInstallWithContext, SFCWithInstall } from 'element-plus/es/utils';
-export const MessageKey: InjectionKey<SFCInstallWithContext<SFCWithInstall<Message>>> =
-    Symbol('MessageKey');
-export const MessageBoxKey: InjectionKey<SFCInstallWithContext<SFCWithInstall<IElMessageBox>>> =
-    Symbol('MessageBoxKey');
-export const NotificationKey: InjectionKey<SFCInstallWithContext<SFCWithInstall<Notify>>> =
-    Symbol('NotificationKey');
-export default {
-    /**
-     * @description 注册组件 app.use()实现选项式API中this.$message()方法 ，app.provide 实现 快速获取app.config.globalProperties 中的方法，在组合式API中快速获取全局方法
-     * @param app
-     */
-    install: (app: App) => {
-        app.use(ElMessage)
-            .use(ElMessageBox)
-            .use(ElNotification)
-            .provide(MessageBoxKey, ElMessageBox)
-            .provide(MessageKey, ElMessage)
-            .provide(NotificationKey, ElNotification);
-    },
-};
-```
-
-```typescript
-/* src/hooks/element.ts*/
-import { inject } from 'vue';
-import { MessageBoxKey, MessageKey } from '../plugins/element';
-
-export const useMessage = () => {
-    return {
-        $message: inject(MessageKey)!,
-    };
-};
-export const useMessageBox = () => {
-    return {
-        $confirm: inject(MessageBoxKey)!.confirm,
-        $alert: inject(MessageBoxKey)!.alert,
-        $prompt: inject(MessageBoxKey)!.prompt,
-    };
-};
 ```
 
 ### 添加`vue-router` 配置路由
@@ -190,6 +141,7 @@ module.exports = defineConfig({
 
 ```bash
 yarn add vue-i18n
+yarn add @intlify/vite-plugin-vue-i18n -D
 ```
 
 ```typescript
@@ -210,14 +162,19 @@ export default {
 };
 ```
 
+- 配置`vue-i18n` 优化
+
 ```typescript
-import { createApp } from 'vue';
-import App from './App.vue';
-import Element from './plugins/element';
-import router from './plugins/router';
-import i18n from './plugins/i18n';
-createApp(App).use(Element).use(i18n).use(router).mount('#app');
+//vite.config.ts
+import vueI18n from '@intlify/vite-plugin-vue-i18n';
+export default defineConfig(({ mode,command}){
+	plugins:[vueI18n({
+		include: path.resolve(__dirname, 'src/locales/lang/**'),
+    }),]
+}
 ```
+
+  
 
 > TODO
 
@@ -255,3 +212,109 @@ export default defineConfig(({ mode,command}) => {
     }
 }
 ```
+
+## 所有配置信息
+
+- `main.ts`
+
+```typescript
+import { createApp } from 'vue';
+import App from './main.vue';
+import router from './plugins/router';
+import i18n from './locales';
+import 'normalize.css';
+router.beforeEach((to, form, next) => {
+if (!to.path.includes('login') && !sessionStorage.token) {
+next('/login');
+} else next();
+});
+createApp(App).use(router).use(i18n).mount('#app');
+
+```
+
+- `vite.config.ts`
+
+```typescript
+import { defineConfig, loadEnv } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import eslintPlugin from 'vite-plugin-eslint';
+import AutoImport from 'unplugin-auto-import/vite';
+import * as path from 'path';
+import vueI18n from '@intlify/vite-plugin-vue-i18n';
+import DefineOptions from 'unplugin-vue-define-options/vite'
+
+export default defineConfig(({ mode,command}) => {
+    const env = loadEnv(mode, process.cwd());
+    const base = {
+        base:'/develop/',
+        resolve: {
+            alias: [{ find: '@', replacement: path.resolve(__dirname, './src/') }],
+            extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+        },
+        plugins: [
+            vue(),
+            DefineOptions(),
+            vueI18n({
+                include: path.resolve(__dirname, 'src/locales/lang/**'),
+            }),
+            AutoImport({
+                resolvers: [ElementPlusResolver()],
+                dts: './src/auto-imports.d.ts',
+                vueTemplate: true,
+                imports: ['vue', 'vue-i18n'],
+                eslintrc: {
+                    enabled: true,
+                    filepath: '.eslintrc-auto-import.json',
+                },
+            }),
+            Components({
+                resolvers: [
+                    ElementPlusResolver({
+                        importStyle: 'sass',
+                    }),
+                ],
+                extensions: ['vue', 'ts'],
+                // include: ['src/locales/index.ts'],
+                dts: './src/components.d.ts',
+                // globs:[{},"src/components/**/*"]
+            }),
+            eslintPlugin({
+                include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
+            }),
+        ],
+    }
+    console.log(env,mode,command); 
+    if(command==='serve'){
+        return {
+                ...base
+        }
+    }else if(command='build'){
+        return {
+            ...base,
+            build:{
+                target: 'modules',
+                minify: 'terser',
+                terserOptions: {
+                    compress: {
+                        drop_console: true,
+                        drop_debugger: true,
+                    },
+                },
+                rollupOptions: {
+                    plugins: [],
+                    output: {
+                        manualChunks: {
+                            vue: ['vue'],
+                            elmentPlus: ['element-plus'],
+                        },
+                    },
+                },
+            }
+        }
+    }
+});
+
+```
+

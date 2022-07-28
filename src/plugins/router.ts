@@ -3,7 +3,7 @@
  * @Date: 2022-07-11 11:10:06
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-07-27 11:37:38
+ * @Last Modified Time: 2022-07-28 10:45:39
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const routes: Readonly<RouteRecordRaw[]> = [
@@ -26,11 +26,11 @@ const routes: Readonly<RouteRecordRaw[]> = [
                     },
                 ],
             },
-            {
-                path:'/home',
-                component:()=>import('@/views/Home/index.vue'),
-                name:'Home'
-            }
+            // {
+            //     path:'/home',
+            //     component:()=>import('@/views/Home/index.vue'),
+            //     name:'Home'
+            // }
         ],
     },
 ];
