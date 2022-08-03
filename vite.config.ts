@@ -27,7 +27,7 @@ export default defineConfig(({ mode,command}) => {
                 resolvers: [ElementPlusResolver()],
                 dts: './src/auto-imports.d.ts',
                 vueTemplate: true,
-                imports: ['vue', 'vue-i18n'],
+                imports: ['vue', 'vue-i18n','vue-router'],
                 eslintrc: {
                     enabled: true,
                     filepath: '.eslintrc-auto-import.json',

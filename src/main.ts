@@ -5,6 +5,7 @@ import i18n from './locales';
 import 'normalize.css';
 router.beforeEach((to, form, next) => {
     if (!to.path.includes('login') && !sessionStorage.token) {
+        console.log("aaa")
         next('/login');
     } else next();
 });
