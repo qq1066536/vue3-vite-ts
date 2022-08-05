@@ -33,8 +33,8 @@ defineOptions({
 })
 const { t } = useI18n();
 const form = reactive({
-    username: '',
-    password: '',
+    username: 'liu.guo',
+    password: 'P@ssw0rd1',
 });
 const responsive = ref(false);
 const rules = computed(()=>{return {
@@ -86,9 +86,11 @@ const handleClick = async () => {
             //     a: 'aaa',
             // });
             let source = await request.post<MyConfig, Iresponse>(aasApi.login, form);
+           
             if (source.code === 200) {
+                 console.log(source);
                 sessionStorage.token = `Bearer ${source.data.token}`;
-                router.push({ name: 'Home' });
+                router.push({ path:'/home' });
             }
         }
         // GET('/s', { a: 123 });

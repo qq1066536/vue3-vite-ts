@@ -3,7 +3,7 @@
  * @Date: 2022-08-03 08:22:29
  * @Description:
  * @Last Modified By: liu.guo
- * @Last Modified Time: 2022-08-03 08:37:37
+ * @Last Modified Time: 2022-08-05 14:12:01
  */
 interface actionsDto {
     active: boolean;
@@ -31,12 +31,27 @@ interface fieldDto {
     name: string;
     [key: string]: boolean | string | number;
 }
+interface filterValueDto {
+    opreator: string;
+    value: string;
+    field: string;
+    [key: string]: unknown;
+}
+interface filtersDto {
+    version?: string;
+    code: string;
+    id: number;
+    name: string;
+    dataType: string;
+    filterValueList?: filterValueDto[];
+    [key: string]: unknown;
+}
 interface dataview {
     actions: actionsDto[];
     code: string;
     editable: boolean;
     fields: fieldDto[];
-    filters: fieldDto[];
+    filters: filtersDto[];
     id: number;
     name: string;
     pageable: boolean;
